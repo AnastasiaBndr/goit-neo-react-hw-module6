@@ -3,10 +3,14 @@ import { useId } from "react";
 import { FormSchema } from "../../helpers";
 import { nanoid } from "nanoid";
 import css from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-export default function ContactForm({ addContact }) {
+export default function ContactForm() {
   const nameFieldId = useId();
   const numberFieldId = useId();
+
+  const dispatch = useDispatch();
 
   const initialValues = {
     name: "",
@@ -14,7 +18,7 @@ export default function ContactForm({ addContact }) {
   };
 
   const handleSubmit = (values, actions) => {
-    addContact({ ...values, id: nanoid() });
+    dispatch(addContact({ ...values, id: nanoid() }));
     actions.resetForm();
   };
 

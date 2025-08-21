@@ -1,12 +1,15 @@
 import css from "./Contact.module.css";
 import { getRandomIcon } from "../../helpers";
-
+import { useDispatch } from "react-redux";
 import { FaPhoneAlt } from "react-icons/fa";
 import { useMemo } from "react";
+import { deleteContact } from "../../redux/contactsSlice";
 
 
-export default function Contact({ contact, onDelete }) {
-  const randomIcon=useMemo(()=>getRandomIcon(),[])
+export default function Contact({ contact }) {
+  const randomIcon = useMemo(() => getRandomIcon(), []);
+  const dispatch = useDispatch();
+  const handleDelete = () => dispatch(deleteContact(contact.id));
   return (
     <div className={css["contact-container"]}>
       <div className={css["name-number-container"]}>
@@ -19,7 +22,7 @@ export default function Contact({ contact, onDelete }) {
           <p>{contact.number}</p>
         </div>
       </div>
-      <button onClick={() => onDelete(contact.id)}>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 }
